@@ -1,0 +1,22 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Amigo</title>
+</head>
+<body>
+    <h1>Modificar datos</h1>
+    <form action="/html/save_amigo" method="POST">
+        <input type="hidden" name="id" value="{{amigo.id if amigo else ''}}"/>
+        <label for="name">Nombre</label><br>
+        <input type="text" name="name" value="{{amigo.name if amigo else ''}}"><br><br>
+        
+        <label for="longi">Longitud</label><br>
+        <input type="text" name="longi" value="{{amigo.longi if amigo else ''}}"><br><br>
+        
+        <label for="lati">Latitud</label><br>
+        <input type="text" name="lati" value="{{amigo.lati if amigo else ''}}"><br><br>
+        
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>
