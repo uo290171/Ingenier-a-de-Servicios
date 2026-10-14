@@ -1,0 +1,9 @@
+# Base de datos persistente (no va a git)
+Sesion 2.2/basedatos/
+
+# Entornos virtuales
+flaskenv/
+**/flaskenv/
+__pycache__/
+**/__pycache__/
+*.pyc
