@@ -1,0 +1,5 @@
+node_exporter-*.tar.gz
+node_exporter-*/
+prometheus-*.tar.gz
+prometheus-*/
+basedatos/
