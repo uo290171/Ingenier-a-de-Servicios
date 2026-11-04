@@ -1,16 +1,268 @@
 {
   "panels": [
-    {"datasource": {"type": "prometheus", "uid": "ag3at1o7iy8zkc"}, "fieldConfig": {"defaults": {"unit": "short"}, "overrides": []}, "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}, "id": 1, "options": {"legend": {"displayMode": "list", "placement": "bottom", "showLegend": true}, "tooltip": {"mode": "single"}}, "targets": [{"datasource": {"type": "prometheus", "uid": "ag3at1o7iy8zkc"}, "expr": "amigos_http_requests_total", "range": true, "refId": "A"}], "title": "Peticiones HTTP de Amigos", "type": "timeseries"},
-    {"datasource": {"type": "prometheus", "uid": "ag3at1o7iy8zkc"}, "fieldConfig": {"defaults": {"unit": "reqps"}, "overrides": []}, "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}, "id": 2, "options": {"legend": {"displayMode": "list", "placement": "bottom", "showLegend": true}, "tooltip": {"mode": "single"}}, "targets": [{"datasource": {"type": "prometheus", "uid": "ag3at1o7iy8zkc"}, "expr": "rate(amigos_http_requests_total[5m])", "range": true, "refId": "A"}], "title": "Peticiones por segundo", "type": "timeseries"},
-    {"datasource": {"type": "prometheus", "uid": "ag3at1o7iy8zkc"}, "fieldConfig": {"defaults": {"unit": "reqps"}, "overrides": []}, "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8}, "id": 3, "options": {"legend": {"displayMode": "list", "placement": "bottom", "showLegend": true}, "tooltip": {"mode": "single"}}, "targets": [{"datasource": {"type": "prometheus", "uid": "ag3at1o7iy8zkc"}, "expr": "rate(amigos_http_errors_total[5m])", "range": true, "refId": "A"}], "title": "Errores HTTP por segundo", "type": "timeseries"},
-    {"datasource": {"type": "prometheus", "uid": "ag3at1o7iy8zkc"}, "fieldConfig": {"defaults": {"unit": "s"}, "overrides": []}, "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8}, "id": 4, "options": {"legend": {"displayMode": "list", "placement": "bottom", "showLegend": true}, "tooltip": {"mode": "single"}}, "targets": [{"datasource": {"type": "prometheus", "uid": "ag3at1o7iy8zkc"}, "expr": "rate(amigos_http_request_duration_seconds_sum[5m]) / rate(amigos_http_request_duration_seconds_count[5m])", "range": true, "refId": "A"}], "title": "Tiempo medio de respuesta", "type": "timeseries"},
-    {"datasource": {"type": "prometheus", "uid": "ag3at1o7iy8zkc"}, "fieldConfig": {"defaults": {"unit": "decgbytes"}, "overrides": []}, "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16}, "id": 5, "options": {"legend": {"displayMode": "list", "placement": "bottom", "showLegend": true}, "tooltip": {"mode": "single"}}, "targets": [{"datasource": {"type": "prometheus", "uid": "ag3at1o7iy8zkc"}, "expr": "node_memory_MemAvailable_bytes / 1024 / 1024 / 1024", "range": true, "refId": "A"}], "title": "Memoria disponible (GB)", "type": "timeseries"},
-    {"datasource": {"type": "prometheus", "uid": "ag3at1o7iy8zkc"}, "fieldConfig": {"defaults": {"unit": "percent"}, "overrides": []}, "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16}, "id": 6, "options": {"legend": {"displayMode": "list", "placement": "bottom", "showLegend": true}, "tooltip": {"mode": "single"}}, "targets": [{"datasource": {"type": "prometheus", "uid": "ag3at1o7iy8zkc"}, "expr": "100 * (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])))", "range": true, "refId": "A"}], "title": "Utilización CPU (%)", "type": "timeseries"}
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ag3at1o7iy8zkc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ag3at1o7iy8zkc"
+          },
+          "expr": "amigos_http_requests_total",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Peticiones HTTP de Amigos",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ag3at1o7iy8zkc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ag3at1o7iy8zkc"
+          },
+          "expr": "rate(amigos_http_requests_total[5m])",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Peticiones por segundo",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ag3at1o7iy8zkc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "reqps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ag3at1o7iy8zkc"
+          },
+          "expr": "rate(amigos_http_errors_total[5m])",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Errores HTTP por segundo",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ag3at1o7iy8zkc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ag3at1o7iy8zkc"
+          },
+          "expr": "rate(amigos_http_request_duration_seconds_sum[5m]) / rate(amigos_http_request_duration_seconds_count[5m])",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Tiempo medio de respuesta",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ag3at1o7iy8zkc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "decgbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "id": 5,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ag3at1o7iy8zkc"
+          },
+          "expr": "node_memory_MemAvailable_bytes / 1024 / 1024 / 1024",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Memoria disponible (GB)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "ag3at1o7iy8zkc"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      "id": 6,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "ag3at1o7iy8zkc"
+          },
+          "expr": "100 * (1 - avg(rate(node_cpu_seconds_total{mode=\"idle\"}[5m])))",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Utilización CPU (%)",
+      "type": "timeseries"
+    }
   ],
   "refresh": "5s",
   "schemaVersion": 39,
-  "tags": ["amigos", "sesion-2.3"],
-  "time": {"from": "now-30m", "to": "now"},
+  "tags": [
+    "amigos",
+    "sesion-2.3"
+  ],
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
   "timezone": "browser",
   "title": "Amigos",
   "uid": "amigos-monitor",
