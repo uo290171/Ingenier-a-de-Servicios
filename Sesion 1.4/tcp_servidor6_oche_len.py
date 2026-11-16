@@ -4,8 +4,15 @@
 # escrita en ASCII y terminada en "\n". Ejemplo: b"4\nHOLA"
 import sys
 import socket
+import time
 
-puerto = int(sys.argv[1]) if len(sys.argv) > 1 else 9999
+# Uso: python3 <servidor>.py [puerto] [--sleep]
+# --sleep: espera 1 s tras el accept() para que los mensajes del cliente
+#          se acumulen en el buffer del socket (experimento del guion)
+args = sys.argv[1:]
+retardo = "--sleep" in args
+args = [a for a in args if a != "--sleep"]
+puerto = int(args[0]) if args else 9999
 
 
 def recvall(sd, n):
@@ -61,6 +68,9 @@ print(f"Servidor Oche (longitud en ASCII) escuchando en el puerto {puerto}...")
 while True:
     print("Esperando un cliente...")
     sd, origen = s.accept()
+    if retardo:
+        print("(--sleep) Esperando 1 segundo antes de leer...")
+        time.sleep(1)
     print(f"Nuevo cliente conectado desde {origen[0]}:{origen[1]}")
 
     while True:

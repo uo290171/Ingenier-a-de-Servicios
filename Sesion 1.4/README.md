@@ -24,6 +24,26 @@ python3 tcp_servidor6_oche_len.py 9999 &
 python3 tcp_cliente6_oche_len.py localhost 9999
 ```
 
+### Opción `--sleep` (experimento del retardo tras el `accept()`)
+
+Los servidores 3 a 7 aceptan la opción `--sleep`, que hace un `time.sleep(1)`
+justo después del `accept()`. Así, cuando el servidor llega al primer `recv()`,
+los mensajes que el cliente envió seguidos ya están acumulados en el buffer
+del socket. La opción puede ir antes o después del puerto.
+
+```bash
+python3 tcp_servidor3_oche_simplista.py 9999 --sleep
+python3 tcp_servidor5_oche_readline.py --sleep        # puerto por defecto 9999
+```
+
+| Servidor con `--sleep` | Cliente | Resultado |
+|---|---|---|
+| `tcp_servidor3_oche_simplista.py` | `tcp_cliente3_oche_envia_seguido.py` | ❌ Recibe las 3 líneas juntas y devuelve `'SERT\n\rSOD\n\rONU\r\n'`; el cliente se queda colgado en el segundo `recv()` (es el fallo que el experimento quiere mostrar) |
+| `tcp_servidor4_oche_mejorado.py` | `tcp_cliente4_oche_mejorado.py` | ✅ `ONU`, `SOD`, `SERT` por separado |
+| `tcp_servidor5_oche_readline.py` | `tcp_cliente5_oche_readline.py` | ✅ |
+| `tcp_servidor6_oche_len.py` | `tcp_cliente6_oche_len.py` | ✅ |
+| `tcp_servidor7_opcional.py` | `tcp_cliente7_opcional.py` | ✅ |
+
 ## Despliegue con Docker
 
 **Puerto del anfitrión: 9091** (el guion propone 9090, pero en nuestra máquina
