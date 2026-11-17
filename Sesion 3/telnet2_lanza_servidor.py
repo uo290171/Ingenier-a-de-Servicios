@@ -16,13 +16,13 @@ tn.read_until(b"Password: ")
 tn.write(CLAVE.encode('utf-8') + b"\n")
 
 # 2. Esperar al prompt
-tn.read_until(b"$")
+tn.read_until(b"$ ")
 
-# 3. Pedir la lista de procesos
-tn.write(b"ps -ef\n")
+# 3. Pedir la lista de procesos (ps -ef como el guion; ww para no cortar las líneas a 80 columnas)
+tn.write(b"ps -efww\n")
 
 # 4. Esperar al siguiente prompt y guardar la respuesta
-respuesta = tn.read_until(b"$")
+respuesta = tn.read_until(b"$ ")
 
 # 5. ¿Está ya en ejecución?
 if SERVIDOR in respuesta:
