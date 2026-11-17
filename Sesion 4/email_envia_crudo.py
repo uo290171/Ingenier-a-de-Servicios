@@ -1,4 +1,6 @@
 # Envía un correo hablando SMTP directamente por un socket
+# El mensaje se construye con la biblioteca email (RFC 5322)
+import email.message, email.utils
 import socket
 import sys
 
@@ -15,14 +17,19 @@ server = "relay.uniovi.es"
 port = 25
 fromaddr = "uo290171@uniovi.es"
 toaddr = "uo290171@uniovi.es"
-subject = "Prueba SMTP en crudo"
-data = "Hola, este correo se ha enviado desde un socket en python."
+subject = "Prueba SMTP en crudo con la biblioteca email"
+data = "Hola, este correo se ha construido con email.message."
 
-message = """To: %s
-From: %s
-Subject: %s\r\n\r\n
-%s
-\r\n.\r\n""" % (toaddr, fromaddr, subject, data)
+mensaje = email.message.EmailMessage()
+mensaje['To'] = toaddr
+mensaje['From'] = fromaddr
+mensaje['Subject'] = subject
+mensaje['Date'] = email.utils.formatdate(localtime=True)
+mensaje['Message-ID'] = email.utils.make_msgid()
+mensaje.set_content(data)
+
+# as_bytes() no incluye el punto final: lo añadimos nosotros
+message = mensaje.as_bytes() + b"\r\n.\r\n"
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.connect((server, port))
@@ -40,7 +47,7 @@ RecvReply(s, b"250")
 s.send(b"DATA\r\n")
 RecvReply(s, b"354")
 
-s.send(message.encode("utf-8"))
+s.send(message)
 RecvReply(s, b"250")
 
 s.send(b"QUIT\r\n")
