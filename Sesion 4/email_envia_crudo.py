@@ -1,5 +1,6 @@
 # Envía un correo hablando SMTP directamente por un socket
 # El mensaje se construye con la biblioteca email (RFC 5322)
+# Ej.9 (opcional): incluye logoatc.gif como adjunto
 import email.message, email.utils
 import socket
 import sys
@@ -17,8 +18,8 @@ server = "relay.uniovi.es"
 port = 25
 fromaddr = "uo290171@uniovi.es"
 toaddr = "uo290171@uniovi.es"
-subject = "Prueba SMTP en crudo con la biblioteca email"
-data = "Hola, este correo se ha construido con email.message."
+subject = "Prueba SMTP en crudo con adjunto"
+data = "Hola, este correo lleva adjunto el logo de ATC."
 
 mensaje = email.message.EmailMessage()
 mensaje['To'] = toaddr
@@ -27,6 +28,10 @@ mensaje['Subject'] = subject
 mensaje['Date'] = email.utils.formatdate(localtime=True)
 mensaje['Message-ID'] = email.utils.make_msgid()
 mensaje.set_content(data)
+
+with open("logoatc.gif", "rb") as f:
+    gif = f.read()
+mensaje.add_attachment(gif, "image", "gif", filename="atc.gif")
 
 # as_bytes() no incluye el punto final: lo añadimos nosotros
 message = mensaje.as_bytes() + b"\r\n.\r\n"
@@ -47,7 +52,7 @@ RecvReply(s, b"250")
 s.send(b"DATA\r\n")
 RecvReply(s, b"354")
 
-s.send(message)
+s.sendall(message)
 RecvReply(s, b"250")
 
 s.send(b"QUIT\r\n")

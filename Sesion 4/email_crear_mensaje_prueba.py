@@ -8,5 +8,10 @@ mensaje['Date'] = email.utils.formatdate(localtime=True)
 mensaje['Message-ID'] = email.utils.make_msgid()
 mensaje.set_content("Esto es una prueba")
 
+# Ej.9 (opcional): adjuntar logoatc.gif como atc.gif
+with open("logoatc.gif", "rb") as f:
+    gif = f.read()
+mensaje.add_attachment(gif, "image", "gif", filename="atc.gif")
+
 binario = mensaje.as_bytes()
 print(binario.decode("utf-8"))
